@@ -1,0 +1,5 @@
+this is a program to get the public ip addr.it depends on libcurl.it was test ont bellow paltform:
+window 7 64bit
+ubunt 1804
+centos 7.5
+on centos or ubunt you shoudle modfiy the head file who prive the sleep() function
