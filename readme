@@ -1,4 +1,4 @@
-this is a program to get the public ip addr.it depends on libcurl.it was test ont bellow paltform:
+this is a program to get the public ip addr.it depends on libcurl.it was test on bellow paltform:
 window 7 64bit
 ubunt 1804
 centos 7.5
