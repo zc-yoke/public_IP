@@ -13,7 +13,7 @@ Introduction
 ## Test on platform
 This program test on bellow platform
 
-* ** window 7 64bit **
+* **window 7 64bit**
 
 * **centos 7.5**
 * **ubuntu 18.04**
@@ -22,7 +22,7 @@ Attention:on linux you should modfiy the head file who prive the sleep() functio
 
 On linux you can use #include &lt;unistd.h&gt;,just comment the "#include &lt;windows.h&gt;"
 
-On window you can use #include <windows.h>,just commet the "#include &lt;unistd.h&gt;"
+On window you can use #include &lt;windows.h&gt;,just commet the "#include &lt;unistd.h&gt;"
 
 ## Compile sample
 g++ maim.cpp -std=c++11 -o getip -I /"path to the licurl header files" -L /"path to the libcurl.a" -lcurl
