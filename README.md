@@ -28,4 +28,4 @@ On window you can use #include &lt;windows.h&gt;,just commet the "#include &lt;u
 g++ maim.cpp -std=c++11 -o getip -I /"path to the licurl header files" -L /"path to the libcurl.a" -lcurl
 
 ## Contact me
-if you can promote this program,just modify it feel free,and let me known,my emai:715236311@qq.com
+if you can promote this program,just modify it feel free,and let me known,my email:715236311@qq.com
