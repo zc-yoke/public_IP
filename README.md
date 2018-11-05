@@ -13,7 +13,7 @@ Introduction
 ## Test on platform
 This program test on bellow platform
 
-* ** window 7 64bit **
+* **window 7 64bit**
 
 * **centos 7.5**
 * **ubuntu 18.04**
