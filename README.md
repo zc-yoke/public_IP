@@ -1,6 +1,6 @@
 Introduction
 =======
-##Describe
+## Describe
 * This is a program to get the public ip address,it depends on libcurl.so you should compile the libcurl before compile this program
 
 * this  program used the multithreaded technique #include<thread> which is support c++11
@@ -10,7 +10,7 @@ Introduction
 * this program will store the ip address and compare the result between the old ip and the new ip.if the ip has changed ,the event whill be written to the log file
 
 
-##Test on platform
+## Test on platform
 This program test on bellow platform
 
 * ** window 7 64bit **
@@ -24,5 +24,5 @@ On linux you can use #include <unistd.h>,just comment the "#include <windows.h>"
 
 On window you can use #include <windows.h>,just commet the "#include <unistd.h>"
 
-##Compile sample
+## Compile sample
 g++ maim.cpp -std=c++11 -o getip -I /"path to the licurl header files" -L /"path to the libcurl.a" -lcurl
