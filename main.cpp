@@ -2,10 +2,10 @@
 # include<thread>
 #include "curl.h"
 //#include <curl/curl.h>
-#include <windows.h>
+#include <unistd.h>
+//#include <windows.h>
 #include <fstream>
 #include<string.h>
-#include <unistd.h>
 #include <time.h>
 using namespace std;
 char cip[256];//ip.cip.cc
@@ -28,14 +28,13 @@ static  size_t process_cip(void *buffer, size_t sizeLength, size_t nmemb, void *
 static  size_t process_ipip(void *buffer, size_t sizeLength, size_t nmemb, void *user_p)
 {
     char* temp=(char*)user_p;
-    memcpy(temp,buffer,256);
-    temp=&(temp[7]);
-    //get the length
-    int length=strlen(temp);
-    char tempA[64]= {0};
-    memcpy(tempA,temp,length-2);
-    strcpy(temp,tempA);
 
+    char tempA[256]= {0};
+    memcpy(tempA,buffer,256);
+    char* tempB=tempA+7;
+    //get the length
+    int length=strlen(tempB);
+    memcpy(temp,tempB,length-2);
     return sizeLength*nmemb;
 }
 size_t process_ipinfo(void *buffer, size_t sizeLength, size_t nmemb, void *user_p)
@@ -145,25 +144,16 @@ int main(int argc, char **argv)
 
 
     //claim a variant to store the result
-    char** result=new char*[4];
-    for(int i=0; i<4; ++i)
-    {
-        result[i]=new char[64];
-        memset(result[i],0,64);
-    }
+    char result[4][64]= {0};
 
-    int* qty=new int[4];
-    qty[0]=1;
-    qty[1]=1;
-    qty[1]=1;
-    qty[1]=1;
+    int qty[4]= {0};
 
     memset(cip,0,256);
     memset(ipip,0,256);
     memset(ipinfo,0,256);
     memset(icanhazip,0,256);
 
-    char oldIp[64]={1};
+    char oldIp[64]= {0};
 
     while(true)
     {
@@ -192,22 +182,26 @@ int main(int argc, char **argv)
         strcpy(result[3],icanhazip);
 
 
+        if(strlen(result[0])!=0)
+            qty[0]+=1;
+
         for(int i=1; i<4; ++i)
         {
-            for(int k=0; k<i&&k>=0; --k)
+            if(strlen(result[i])==0)
+                continue;
+            else
             {
-                if(strlen(result[k])==0)
+                for(int k=0; k<i&&k>=0; --k)
                 {
-                    qty[k]=0;//to ensure result come out when there only a ip was get from web
-                    continue;
-                }
-                if(strcmp(result[i],result[k])==0)
-                {
-                    qty[k]=qty[k]+1;
-                    memset(result[i],0,64);
-                    break;
+                    if(strcmp(result[i],result[k])==0)
+                    {
+                        qty[k]=qty[k]+1;
+                        memset(result[i],0,64);
+                        break;
+                    }
                 }
             }
+
         }
 
 
@@ -223,7 +217,16 @@ int main(int argc, char **argv)
                 break;
             }
         }
-        cout<<"the most is "<<result[flag]<<endl;
+
+        //if there is no result at all write the log
+        if(maxQty==0)
+        {
+            changeIP<<"there is no result"<<endl;
+        }
+        else
+        {
+            cout<<"the most is "<<result[flag]<<endl;
+        }
         ++counter;
 
         if(counter%100==0)
@@ -243,7 +246,7 @@ int main(int argc, char **argv)
         //reset the data,ready to new loop
         for(int i=0; i<4; ++i)
         {
-            qty[i]=1;
+            qty[i]=0;
             memset(result[i],0,64);
         }
 
